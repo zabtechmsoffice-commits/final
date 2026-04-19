@@ -155,7 +155,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
   return (
     <div className="flex h-full flex-col">
       {/* Header Section */}
-      <div className="border-b border-sidebar-border/60 bg-gradient-to-b from-sidebar-primary/8 to-sidebar px-6 py-6">
+      <div className="border-b border-sidebar-border/60 bg-gradient-to-b from-sidebar-primary/8 to-sidebar px-6 py-6 shrink-0">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
@@ -201,7 +201,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
 
       {/* Profile Section */}
       {profile ? (
-        <div className="border-b border-sidebar-border/60 px-6 py-4">
+        <div className="border-b border-sidebar-border/60 px-6 py-4 shrink-0">
           <p className="text-sm font-semibold text-sidebar-foreground truncate">
             {profile.full_name || profile.email}
           </p>
@@ -217,8 +217,8 @@ function SidebarContent({ pathname }: { pathname: string }) {
       ) : null}
 
       {/* Navigation Section */}
-      <ScrollArea className="flex-1 px-3 py-4">
-        <nav className="space-y-1">
+      <ScrollArea className="flex-1 min-h-0">
+        <nav className="space-y-1 px-3 py-4">
           {filteredItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -255,7 +255,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
       </ScrollArea>
 
       {/* Footer Section */}
-      <div className="space-y-1.5 border-t border-sidebar-border/60 bg-gradient-to-t from-sidebar-primary/5 to-sidebar p-4">
+      <div className="shrink-0 space-y-1.5 border-t border-sidebar-border/60 bg-gradient-to-t from-sidebar-primary/5 to-sidebar p-4">
         <Button
           variant="ghost"
           size="sm"
