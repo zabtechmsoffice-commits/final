@@ -423,7 +423,7 @@ export default function ImamLayout({
           </SheetContent>
         </Sheet>
 
-        <div className="flex-1 lg:pl-64">
+        <div className="flex-1 border-l border-slate-200/50 dark:border-sidebar-border/20 lg:pl-64">
           <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:hidden">
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
               <SheetTrigger asChild>
