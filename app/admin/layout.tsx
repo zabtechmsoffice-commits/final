@@ -316,38 +316,38 @@ function SidebarContent({
         </div>
       </div>
 
-      {/* Light Mode Sidebar - Glassmorphism */}
-      <div className="flex dark:hidden h-full flex-col bg-gradient-to-b from-primary/5 via-background to-accent/5">
-        {/* Header Section - Light glass effect */}
-        <div className="border-b border-primary/15 bg-gradient-to-br from-primary/8 via-primary/4 to-accent/6 backdrop-blur-md px-5 py-5 shrink-0">
+      {/* Light Mode Sidebar - Premium Prayer Times Style */}
+      <div className="flex dark:hidden h-full flex-col bg-white">
+        {/* Header Section - Premium Card */}
+        <div className="border-b border-teal-200/60 bg-gradient-to-br from-teal-50/90 to-cyan-50/40 px-5 py-4 shrink-0 shadow-sm">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3 min-w-0">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/25">
-                <Building2 className="h-5 w-5 text-primary" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 shadow-sm">
+                <Building2 className="h-5 w-5 text-white" />
               </div>
               <div className="flex flex-col gap-0.5 min-w-0">
-                <h1 className="text-sm font-bold tracking-tight text-foreground truncate">
+                <h1 className="text-sm font-bold tracking-tight text-slate-900 truncate">
                   Admin Panel
                 </h1>
-                <p className="text-xs text-foreground/60 line-clamp-1">
+                <p className="text-xs text-slate-500 line-clamp-1">
                   Live control plane
                 </p>
               </div>
             </div>
             {metadataLoading ? (
-              <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-foreground/40" />
+              <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-slate-400" />
             ) : (
-              <Badge className="shrink-0 bg-gradient-to-r from-primary/25 to-primary/15 text-primary border-primary/30 text-xs">
+              <Badge className="shrink-0 bg-teal-100 text-teal-800 border border-teal-300 text-xs font-semibold">
                 Live
               </Badge>
             )}
           </div>
           {metadata && (
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <Badge variant="secondary" className="bg-primary/8 text-foreground/70 text-xs border-primary/20">
+              <Badge variant="secondary" className="bg-white/70 text-teal-700 text-xs border border-teal-200 font-medium shadow-xs">
                 {enabledModuleCount} modules
               </Badge>
-              <Badge variant="secondary" className="bg-primary/8 text-foreground/70 text-xs border-primary/20">
+              <Badge variant="secondary" className="bg-white/70 text-teal-700 text-xs border border-teal-200 font-medium shadow-xs">
                 {metadata.entities.length} surfaces
               </Badge>
             </div>
@@ -356,16 +356,16 @@ function SidebarContent({
 
         {/* Profile Section */}
         {profile && (
-          <div className="border-b border-primary/10 px-5 py-3.5 shrink-0 bg-gradient-to-br from-primary/5 to-accent/3 backdrop-blur-sm">
-            <p className="text-xs font-semibold text-foreground truncate">
+          <div className="border-b border-teal-200/40 px-5 py-3 shrink-0 bg-teal-50/50">
+            <p className="text-xs font-semibold text-slate-800 truncate">
               {profile.full_name || profile.email}
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
-              <Badge className="bg-gradient-to-r from-primary/15 to-primary/8 text-primary border-primary/20 text-xs">
+              <Badge className="bg-teal-100 text-teal-800 border border-teal-300 text-xs font-medium">
                 {getRoleDisplayName(profile.role)}
               </Badge>
               {metadata?.realtimeFeed ? (
-                <span className="text-xs text-foreground/50">
+                <span className="text-xs text-slate-500">
                   Feed: {metadata.realtimeFeed}
                 </span>
               ) : null}
@@ -374,8 +374,8 @@ function SidebarContent({
         )}
 
         {/* Navigation Section */}
-        <ScrollArea className="flex-1 min-h-0">
-          <nav className="space-y-0.5 px-3 py-3">
+        <ScrollArea className="flex-1 min-h-0 bg-gradient-to-b from-white to-slate-50/40">
+          <nav className="space-y-1 px-3 py-3">
             {filteredItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -387,18 +387,18 @@ function SidebarContent({
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "group relative flex items-center justify-between gap-2.5 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200",
+                    "group relative flex items-center justify-between gap-2.5 rounded-lg px-3 py-2.5 text-xs font-medium transition-all duration-200",
                     isActive
-                      ? "bg-gradient-to-r from-primary/20 to-primary/10 text-primary border border-primary/20"
-                      : "text-foreground/70 hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 hover:text-foreground"
+                      ? "bg-gradient-to-r from-teal-100/90 to-cyan-100/50 text-teal-900 border border-teal-300/70 shadow-sm"
+                      : "text-slate-700 hover:bg-gradient-to-r hover:from-teal-50/80 hover:to-cyan-50/40 hover:text-slate-900 hover:border hover:border-teal-200/50 hover:shadow-xs"
                   )}
                 >
                   <span className="flex items-center gap-2.5 min-w-0">
-                    <item.icon className="h-4 w-4 shrink-0" />
-                    <span className="truncate text-xs">{item.name}</span>
+                    <item.icon className="h-4 w-4 shrink-0 text-teal-700" />
+                    <span className="truncate text-xs font-medium">{item.name}</span>
                   </span>
                   {badgeCount != null && (
-                    <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-gradient-to-r from-primary/25 to-primary/15 px-1 text-xs font-semibold text-primary border-primary/25">
+                    <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-teal-600 text-white px-1 text-xs font-bold shadow-sm">
                       {badgeCount}
                     </Badge>
                   )}
@@ -409,11 +409,11 @@ function SidebarContent({
         </ScrollArea>
 
         {/* Footer Section */}
-        <div className="shrink-0 space-y-1 border-t border-primary/10 bg-gradient-to-br from-primary/5 to-accent/3 backdrop-blur-sm p-3">
+        <div className="shrink-0 space-y-1 border-t border-teal-200/40 bg-gradient-to-br from-teal-50/40 to-white p-3">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-start h-8 text-foreground/70 hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 hover:text-foreground transition-colors text-xs"
+            className="w-full justify-start h-8 text-slate-700 hover:bg-teal-50/80 hover:text-slate-900 hover:border hover:border-teal-200/40 transition-all text-xs font-medium"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             {theme === "dark" ? (
@@ -427,7 +427,7 @@ function SidebarContent({
             <Button
               variant="ghost"
               size="sm"
-              className="w-full justify-start h-8 text-foreground/70 hover:bg-gradient-to-r hover:from-primary/10 hover:to-primary/5 hover:text-foreground transition-colors text-xs"
+              className="w-full justify-start h-8 text-slate-700 hover:bg-teal-50/80 hover:text-slate-900 hover:border hover:border-teal-200/40 transition-all text-xs font-medium"
             >
               <ChevronLeft className="mr-2 h-3.5 w-3.5" />
               <span>Back</span>
@@ -436,7 +436,7 @@ function SidebarContent({
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-start h-8 text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors text-xs"
+            className="w-full justify-start h-8 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border hover:border-red-200/40 transition-all text-xs font-medium"
             onClick={() => signOut()}
           >
             <LogOut className="mr-2 h-3.5 w-3.5" />
