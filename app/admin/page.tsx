@@ -53,126 +53,144 @@ export default function AdminDashboardPage() {
   const enabledModules = Object.values(data?.moduleSettings ?? {}).filter(Boolean).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
-      <div className="space-y-8 p-4 sm:p-6 lg:p-8">
-        {/* Header Section */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge 
-                variant="secondary" 
-                className="gap-1.5 bg-primary/10 text-primary hover:bg-primary/20"
-              >
-                <Zap className="h-3.5 w-3.5" />
-                Realtime Admin
-              </Badge>
-              <Badge 
-                variant="secondary" 
-                className="gap-1.5 bg-accent/10 text-accent hover:bg-accent/20"
-              >
-                <Shield className="h-3.5 w-3.5" />
-                Role Enforced
-              </Badge>
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-500/20"
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                Premium Panel
-              </Badge>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      <div className="space-y-10 p-4 sm:p-6 lg:p-8">
+        {/* Header Section - Premium */}
+        <div className="animate-slide-in-down space-y-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-4 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge 
+                  variant="secondary" 
+                  className="gap-1.5 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                >
+                  <Zap className="h-3.5 w-3.5" />
+                  Realtime Admin
+                </Badge>
+                <Badge 
+                  variant="secondary" 
+                  className="gap-1.5 bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
+                >
+                  <Shield className="h-3.5 w-3.5" />
+                  Role Enforced
+                </Badge>
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-500/20 transition-colors"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Premium Panel
+                </Badge>
+              </div>
+              <div>
+                <h1 className="heading-xl text-foreground">
+                  Admin Dashboard
+                </h1>
+                <p className="mt-3 max-w-3xl body-sm text-muted-foreground leading-relaxed">
+                  Manage all entities, settings, and permissions from this comprehensive control surface. Real-time updates across your entire organization.
+                </p>
+              </div>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground">
-              Admin Dashboard
-            </h1>
-            <p className="max-w-2xl text-muted-foreground">
-              Manage all entities, settings, and permissions from this comprehensive control surface. Real-time updates across your entire organization.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Link href="/admin/control-center">
-              <Button className="gap-2">
-                <Database className="h-4 w-4" />
-                Control Center
-              </Button>
-            </Link>
-            <Link href="/admin/settings">
-              <Button variant="outline" className="gap-2">
-                <SlidersHorizontal className="h-4 w-4" />
-                Settings
-              </Button>
-            </Link>
-            <Link href="/admin/prayer-times">
-              <Button variant="outline" className="gap-2">
-                <Clock3 className="h-4 w-4" />
-                Prayer Times
-              </Button>
-            </Link>
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <Link href="/admin/prayer-times">
+                <Button variant="outline" className="gap-2 transition-premium">
+                  <Clock3 className="h-4 w-4" />
+                  Prayer Times
+                </Button>
+              </Link>
+              <Link href="/admin/settings">
+                <Button variant="outline" className="gap-2 transition-premium">
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Settings
+                </Button>
+              </Link>
+              <Link href="/admin/control-center">
+                <Button className="gap-2 transition-premium">
+                  <Database className="h-4 w-4" />
+                  Control Center
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-primary/2 to-transparent hover:border-primary/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+        {/* Stats Grid - Premium Cards */}
+        <div className="animate-slide-in-up grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="group rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-primary/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-primary/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Managed Entities</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : entityCount}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : entityCount}
                   </p>
                 </div>
-                <div className="rounded-lg bg-primary/10 p-3">
+                <div className="rounded-xl bg-primary/15 border border-primary/20 p-3 transition-premium group-hover:bg-primary/20 group-hover:shadow-md">
                   <Database className="h-6 w-6 text-primary" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-primary/10">
+                <p className="text-xs text-muted-foreground font-medium">Data management</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-accent/20 bg-gradient-to-br from-accent/5 via-accent/2 to-transparent hover:border-accent/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-accent/15 bg-gradient-to-br from-accent/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-accent/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-accent/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Live Records</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : totalRecords}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : totalRecords}
                   </p>
                 </div>
-                <div className="rounded-lg bg-accent/10 p-3">
+                <div className="rounded-xl bg-accent/15 border border-accent/20 p-3 transition-premium group-hover:bg-accent/20 group-hover:shadow-md">
                   <Activity className="h-6 w-6 text-accent" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-accent/10">
+                <p className="text-xs text-muted-foreground font-medium">Active records</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-green-500/20 bg-gradient-to-br from-green-500/5 via-green-500/2 to-transparent hover:border-green-500/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-green-500/15 bg-gradient-to-br from-green-500/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-green-500/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-green-500/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Enabled Modules</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : enabledModules}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : enabledModules}
                   </p>
                 </div>
-                <div className="rounded-lg bg-green-500/10 p-3">
+                <div className="rounded-xl bg-green-500/15 border border-green-500/20 p-3 transition-premium group-hover:bg-green-500/20 group-hover:shadow-md">
                   <Zap className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-green-500/10">
+                <p className="text-xs text-muted-foreground font-medium">Active modules</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-blue-500/2 to-transparent hover:border-blue-500/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-blue-500/15 bg-gradient-to-br from-blue-500/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-blue-500/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-blue-500/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Sync Status</p>
-                  <p className="text-3xl font-bold text-foreground">Live</p>
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    Live
+                  </p>
                 </div>
-                <div className="rounded-lg bg-blue-500/10 p-3">
+                <div className="rounded-xl bg-blue-500/15 border border-blue-500/20 p-3 transition-premium group-hover:bg-blue-500/20 group-hover:shadow-md">
                   <TrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-blue-500/10">
+                <p className="text-xs text-muted-foreground font-medium">Real-time sync</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Entity Overview */}
@@ -180,13 +198,14 @@ export default function AdminDashboardPage() {
           icon={<Database className="h-5 w-5" />}
           title="Entity Overview"
           description="Access and manage all your organization's core entities and data types"
+          variant="elevated"
           action={
             <Button
               variant="outline"
               size="sm"
               onClick={refresh}
               disabled={loading}
-              className="gap-1.5"
+              className="gap-1.5 transition-premium"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />

@@ -214,126 +214,142 @@ export default function ImamDashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
-      <div className="space-y-8 p-4 sm:p-6 lg:p-8">
-        {/* Header Section */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20"
-              >
-                <BookOpen className="h-3.5 w-3.5" />
-                Imam Panel
-              </Badge>
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-primary/10 text-primary hover:bg-primary/20"
-              >
-                <Building2 className="h-3.5 w-3.5" />
-                Mosque Scoped
-              </Badge>
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-accent/10 text-accent hover:bg-accent/20"
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                Premium Experience
-              </Badge>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      <div className="space-y-10 p-4 sm:p-6 lg:p-8">
+        {/* Header Section - Premium */}
+        <div className="animate-slide-in-down space-y-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-4 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+                >
+                  <BookOpen className="h-3.5 w-3.5" />
+                  Imam Panel
+                </Badge>
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                >
+                  <Building2 className="h-3.5 w-3.5" />
+                  Mosque Scoped
+                </Badge>
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Premium Experience
+                </Badge>
+              </div>
+              <div>
+                <h1 className="heading-xl text-foreground">
+                  {mosqueName ? `${mosqueName}` : "Imam Control Center"}
+                </h1>
+                <p className="mt-3 max-w-3xl body-sm text-muted-foreground leading-relaxed">
+                  {mosqueName
+                    ? "Manage your appointed mosque's live settings, prayer schedule, announcements, leadership records, operations teams, community posts, donations, and staff tasks from one dedicated workspace."
+                    : "This panel activates once your imam profile has an active mosque appointment. As soon as the appointment is live, your control center, team board, and tasks will scope automatically to that mosque."}
+                </p>
+              </div>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground">
-              {mosqueName ? `${mosqueName}` : "Imam Control Center"}
-            </h1>
-            <p className="max-w-2xl text-muted-foreground">
-              {mosqueName
-                ? "Manage your appointed mosque's live settings, prayer schedule, announcements, leadership records, operations teams, community posts, donations, and staff tasks from one dedicated workspace."
-                : "This panel activates once your imam profile has an active mosque appointment. As soon as the appointment is live, your control center, team board, and tasks will scope automatically to that mosque."}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button 
-              variant="outline"
-              onClick={refresh}
-              className="gap-1.5"
-            >
-              <Activity className="h-4 w-4" />
-              Refresh
-            </Button>
-            <Link href="/imam/control-center">
-              <Button className="gap-1.5">
-                <Database className="h-4 w-4" />
-                Control Center
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <Button 
+                variant="outline"
+                onClick={refresh}
+                className="gap-2 transition-premium"
+              >
+                <Activity className="h-4 w-4" />
+                Refresh
               </Button>
-            </Link>
+              <Link href="/imam/control-center">
+                <Button className="gap-2 transition-premium">
+                  <Database className="h-4 w-4" />
+                  Control Center
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-primary/2 to-transparent hover:border-primary/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+        {/* Stats Grid - Premium Cards */}
+        <div className="animate-slide-in-up grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="group rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-primary/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-primary/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Managed Surfaces</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : totalEntities}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : totalEntities}
                   </p>
                 </div>
-                <div className="rounded-lg bg-primary/10 p-3">
+                <div className="rounded-xl bg-primary/15 border border-primary/20 p-3 transition-premium group-hover:bg-primary/20 group-hover:shadow-md">
                   <Database className="h-6 w-6 text-primary" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-primary/10">
+                <p className="text-xs text-muted-foreground font-medium">Active surfaces</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-accent/20 bg-gradient-to-br from-accent/5 via-accent/2 to-transparent hover:border-accent/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-accent/15 bg-gradient-to-br from-accent/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-accent/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-accent/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Live Records</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : totalRecords}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : totalRecords}
                   </p>
                 </div>
-                <div className="rounded-lg bg-accent/10 p-3">
+                <div className="rounded-xl bg-accent/15 border border-accent/20 p-3 transition-premium group-hover:bg-accent/20 group-hover:shadow-md">
                   <Activity className="h-6 w-6 text-accent" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-accent/10">
+                <p className="text-xs text-muted-foreground font-medium">Active records</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 via-emerald-500/2 to-transparent hover:border-emerald-500/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-emerald-500/15 bg-gradient-to-br from-emerald-500/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-emerald-500/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-emerald-500/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Prayer Schedules</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : prayerTimeCount}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : prayerTimeCount}
                   </p>
                 </div>
-                <div className="rounded-lg bg-emerald-500/10 p-3">
+                <div className="rounded-xl bg-emerald-500/15 border border-emerald-500/20 p-3 transition-premium group-hover:bg-emerald-500/20 group-hover:shadow-md">
                   <Clock3 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-emerald-500/10">
+                <p className="text-xs text-muted-foreground font-medium">Prayer schedules</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-blue-500/2 to-transparent hover:border-blue-500/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-blue-500/15 bg-gradient-to-br from-blue-500/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-blue-500/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-blue-500/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Recent Activity</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loadingActivity ? "..." : activity.length}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loadingActivity ? <Loader2 className="h-8 w-8 animate-spin" /> : activity.length}
                   </p>
                 </div>
-                <div className="rounded-lg bg-blue-500/10 p-3">
+                <div className="rounded-xl bg-blue-500/15 border border-blue-500/20 p-3 transition-premium group-hover:bg-blue-500/20 group-hover:shadow-md">
                   <TrendingUp className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-blue-500/10">
+                <p className="text-xs text-muted-foreground font-medium">Latest updates</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Quick Workflows */}
@@ -341,6 +357,7 @@ export default function ImamDashboardPage() {
           icon={<BookOpen className="h-5 w-5" />}
           title="Imam Workflows"
           description="Access mosque-scoped surfaces to manage records connected to your mosque"
+          variant="elevated"
         >
           <div className="grid gap-4 md:grid-cols-2">
             {quickLinks.map((item) => (

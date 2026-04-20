@@ -142,130 +142,146 @@ export default function SuperAdminDashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
-      <div className="space-y-8 p-4 sm:p-6 lg:p-8">
-        {/* Header Section */}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20"
-              >
-                <Crown className="h-3.5 w-3.5" />
-                Super Admin
-              </Badge>
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-primary/10 text-primary hover:bg-primary/20"
-              >
-                <Shield className="h-3.5 w-3.5" />
-                Platform Governance
-              </Badge>
-              <Badge 
-                variant="secondary"
-                className="gap-1.5 bg-accent/10 text-accent hover:bg-accent/20"
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                Ultimate Control
-              </Badge>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      <div className="space-y-10 p-4 sm:p-6 lg:p-8">
+        {/* Header Section - Premium */}
+        <div className="animate-slide-in-down space-y-6">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-4 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 transition-colors"
+                >
+                  <Crown className="h-3.5 w-3.5" />
+                  Super Admin
+                </Badge>
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                >
+                  <Shield className="h-3.5 w-3.5" />
+                  Platform Governance
+                </Badge>
+                <Badge 
+                  variant="secondary"
+                  className="gap-1.5 bg-accent/10 text-accent hover:bg-accent/20 transition-colors"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Ultimate Control
+                </Badge>
+              </div>
+              <div>
+                <h1 className="heading-xl text-foreground">
+                  Super Admin Panel
+                </h1>
+                <p className="mt-3 max-w-3xl body-sm text-muted-foreground leading-relaxed">
+                  Govern the platform layer with direct access to global control, user governance, and cross-module visibility. Manage the system with separation from day-to-day admin operations.
+                </p>
+              </div>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground">
-              Super Admin Panel
-            </h1>
-            <p className="max-w-2xl text-muted-foreground">
-              Govern the platform layer with direct access to global control, user governance, and cross-module visibility. Manage the system with separation from day-to-day admin operations.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button 
-              variant="outline"
-              onClick={refresh}
-              className="gap-1.5"
-            >
-              <Activity className="h-4 w-4" />
-              Refresh
-            </Button>
-            <Link href="/super-admin/control-center">
-              <Button className="gap-1.5">
-                <Database className="h-4 w-4" />
-                Super Control Center
+            <div className="flex flex-wrap gap-3 shrink-0">
+              <Button 
+                variant="outline"
+                onClick={refresh}
+                className="gap-2 transition-premium"
+              >
+                <Activity className="h-4 w-4" />
+                Refresh
               </Button>
-            </Link>
-            <Link href="/admin">
-              <Button variant="outline" className="gap-1.5">
-                <ArrowRight className="h-4 w-4" />
-                Admin Panel
-              </Button>
-            </Link>
+              <Link href="/admin">
+                <Button variant="outline" className="gap-2 transition-premium">
+                  <ArrowRight className="h-4 w-4" />
+                  Admin Panel
+                </Button>
+              </Link>
+              <Link href="/super-admin/control-center">
+                <Button className="gap-2 transition-premium">
+                  <Database className="h-4 w-4" />
+                  Super Control Center
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="relative overflow-hidden border-primary/20 bg-gradient-to-br from-primary/5 via-primary/2 to-transparent hover:border-primary/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+        {/* Stats Grid - Premium Cards */}
+        <div className="animate-slide-in-up grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="group rounded-2xl border border-primary/15 bg-gradient-to-br from-primary/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-primary/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-primary/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Governed Surfaces</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : data?.entities.length ?? 0}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : data?.entities.length ?? 0}
                   </p>
                 </div>
-                <div className="rounded-lg bg-primary/10 p-3">
+                <div className="rounded-xl bg-primary/15 border border-primary/20 p-3 transition-premium group-hover:bg-primary/20 group-hover:shadow-md">
                   <Database className="h-6 w-6 text-primary" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-primary/10">
+                <p className="text-xs text-muted-foreground font-medium">Platform entities</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-purple-500/20 bg-gradient-to-br from-purple-500/5 via-purple-500/2 to-transparent hover:border-purple-500/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-purple-500/15 bg-gradient-to-br from-purple-500/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-purple-500/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-purple-500/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Platform Users</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : profileCount}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : profileCount}
                   </p>
                 </div>
-                <div className="rounded-lg bg-purple-500/10 p-3">
+                <div className="rounded-xl bg-purple-500/15 border border-purple-500/20 p-3 transition-premium group-hover:bg-purple-500/20 group-hover:shadow-md">
                   <Users className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-purple-500/10">
+                <p className="text-xs text-muted-foreground font-medium">Active users</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-accent/20 bg-gradient-to-br from-accent/5 via-accent/2 to-transparent hover:border-accent/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-accent/15 bg-gradient-to-br from-accent/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-accent/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-accent/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Live Records</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : totalRecords}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : totalRecords}
                   </p>
                 </div>
-                <div className="rounded-lg bg-accent/10 p-3">
+                <div className="rounded-xl bg-accent/15 border border-accent/20 p-3 transition-premium group-hover:bg-accent/20 group-hover:shadow-md">
                   <Activity className="h-6 w-6 text-accent" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-accent/10">
+                <p className="text-xs text-muted-foreground font-medium">Active records</p>
+              </div>
+            </div>
+          </div>
 
-          <Card className="relative overflow-hidden border-blue-500/20 bg-gradient-to-br from-blue-500/5 via-blue-500/2 to-transparent hover:border-blue-500/40 transition-colors">
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
+          <div className="group rounded-2xl border border-blue-500/15 bg-gradient-to-br from-blue-500/8 via-card to-transparent shadow-elevation-sm transition-premium hover:border-blue-500/30 hover:shadow-elevation-md hover:bg-gradient-to-br hover:from-blue-500/12 hover:via-card hover:to-transparent">
+            <div className="p-6 space-y-4">
+              <div className="flex items-start justify-between">
+                <div className="space-y-2 flex-1">
                   <p className="text-sm font-medium text-muted-foreground">Enabled Modules</p>
-                  <p className="text-3xl font-bold text-foreground">
-                    {loading ? "..." : enabledModules}
+                  <p className="text-4xl font-bold text-foreground tracking-tight">
+                    {loading ? <Loader2 className="h-8 w-8 animate-spin" /> : enabledModules}
                   </p>
                 </div>
-                <div className="rounded-lg bg-blue-500/10 p-3">
+                <div className="rounded-xl bg-blue-500/15 border border-blue-500/20 p-3 transition-premium group-hover:bg-blue-500/20 group-hover:shadow-md">
                   <Settings2 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="pt-2 border-t border-blue-500/10">
+                <p className="text-xs text-muted-foreground font-medium">Active modules</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Governance Workflows */}
@@ -273,6 +289,7 @@ export default function SuperAdminDashboardPage() {
           icon={<Crown className="h-5 w-5" />}
           title="Governance Workflows"
           description="Platform-level actions with separation from operational management"
+          variant="elevated"
         >
           <div className="grid gap-4 md:grid-cols-2">
             {governanceWorkflows.map((item) => (
