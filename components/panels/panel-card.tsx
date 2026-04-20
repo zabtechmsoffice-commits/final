@@ -26,7 +26,11 @@ export function PanelCard({
   ...props
 }: PanelCardProps) {
   return (
-    <Card variant={variant} className={className} {...props}>
+    <Card 
+      variant={variant} 
+      className={cn('animate-slide-in-up transition-premium', className)} 
+      {...props}
+    >
       <CardHeader icon={icon} iconBg={iconBg} gradient={true}>
         <div className="flex items-start justify-between w-full gap-4">
           <div className="flex-1">

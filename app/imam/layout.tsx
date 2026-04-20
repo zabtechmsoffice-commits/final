@@ -153,137 +153,249 @@ function SidebarContent({ pathname }: { pathname: string }) {
   );
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="border-b border-sidebar-border px-6 py-4">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
-              <BookOpen className="h-5 w-5" />
+    <>
+      {/* Dark Mode Sidebar */}
+      <div className="hidden dark:flex dark:h-full dark:flex-col bg-sidebar">
+        {/* Header Section - Premium gradient */}
+        <div className="border-b border-sidebar-border/40 bg-gradient-to-b from-sidebar-accent/60 to-sidebar px-5 py-5 shrink-0">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 min-w-0">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary/20 border border-sidebar-primary/30">
+                <BookOpen className="h-5 w-5 text-sidebar-primary" />
+              </div>
+              <div className="flex flex-col gap-0.5 min-w-0">
+                <h1 className="text-sm font-bold tracking-tight text-sidebar-foreground truncate">
+                  Imam Panel
+                </h1>
+                <p className="text-xs text-sidebar-foreground/60 line-clamp-1">
+                  Mosque control workspace
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-semibold text-lg">Imam Panel</span>
-              <span className="text-xs text-sidebar-foreground/60">
-                Mosque control workspace
-              </span>
-            </div>
+            {metadataLoading ? (
+              <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-sidebar-foreground/40" />
+            ) : (
+              <Badge className="shrink-0 bg-sidebar-primary/25 text-sidebar-primary border-sidebar-primary/40 text-xs">
+                Scoped
+              </Badge>
+            )}
           </div>
-          {metadataLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin text-sidebar-foreground/60" />
-          ) : (
-            <Badge
-              variant="outline"
-              className="border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-            >
-              Scoped
-            </Badge>
-          )}
+          {metadata ? (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              <Badge variant="secondary" className="bg-sidebar-accent/40 text-sidebar-foreground/70 text-xs border-sidebar-border/30">
+                {metadata.entities.length} surfaces
+              </Badge>
+            </div>
+          ) : null}
         </div>
-        {metadata ? (
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            <Badge
-              variant="outline"
-              className="border-sidebar-border bg-sidebar-accent/40 text-sidebar-foreground/80"
-            >
-              {metadata.entities.length} surfaces
-            </Badge>
-            <Badge
-              variant="outline"
-              className="border-sidebar-border bg-sidebar-accent/40 text-sidebar-foreground/80"
-            >
-              Active appointment scope
-            </Badge>
+
+        {/* Profile Section */}
+        {profile ? (
+          <div className="border-b border-sidebar-border/40 px-5 py-3.5 shrink-0 bg-sidebar-accent/30">
+            <p className="text-xs font-semibold text-sidebar-foreground truncate">
+              {profile.full_name || profile.email}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              <Badge className="bg-sidebar-primary/20 text-sidebar-primary border-sidebar-primary/30 text-xs">
+                {getRoleDisplayName(profile.role)}
+              </Badge>
+            </div>
           </div>
         ) : null}
-      </div>
 
-      {profile ? (
-        <div className="border-b border-sidebar-border px-4 py-3">
-          <p className="truncate text-sm font-medium text-sidebar-foreground">
-            {profile.full_name || profile.email}
-          </p>
-          <div className="mt-1 flex flex-wrap items-center gap-2">
-            <Badge
-              variant="outline"
-              className="border-emerald-500/30 bg-emerald-500/10 text-xs text-emerald-700 dark:text-emerald-300"
-            >
-              {getRoleDisplayName(profile.role)}
-            </Badge>
-          </div>
-        </div>
-      ) : null}
+        {/* Navigation Section */}
+        <ScrollArea className="flex-1 min-h-0">
+          <nav className="space-y-0.5 px-3 py-3">
+            {filteredItems.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/imam" && pathname.startsWith(item.href));
+              const badgeCount = getBadgeCount(metadata, item.entityKey);
 
-      <ScrollArea className="flex-1 px-3 py-4">
-        <nav className="space-y-1">
-          {filteredItems.map((item) => {
-            const isActive =
-              pathname === item.href ||
-              (item.href !== "/imam" && pathname.startsWith(item.href));
-            const badgeCount = getBadgeCount(metadata, item.entityKey);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "group relative flex items-center justify-between gap-2.5 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200",
+                    isActive
+                      ? "bg-sidebar-primary/20 text-sidebar-primary"
+                      : "text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+                  )}
+                >
+                  <span className="flex items-center gap-2.5 min-w-0">
+                    <item.icon className="h-4 w-4 shrink-0" />
+                    <span className="truncate text-xs">{item.name}</span>
+                  </span>
+                  {badgeCount != null ? (
+                    <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-sidebar-primary/30 px-1 text-xs font-semibold text-sidebar-primary border-sidebar-primary/40">
+                      {badgeCount}
+                    </Badge>
+                  ) : null}
+                </Link>
+              );
+            })}
+          </nav>
+        </ScrollArea>
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
-                )}
-              >
-                <span className="flex items-center gap-3">
-                  <item.icon className="h-5 w-5" />
-                  {item.name}
-                </span>
-                {badgeCount != null ? (
-                  <Badge
-                    variant="secondary"
-                    className="h-5 min-w-5 bg-emerald-500/15 px-1.5 text-xs text-emerald-700 dark:text-emerald-300"
-                  >
-                    {badgeCount}
-                  </Badge>
-                ) : null}
-              </Link>
-            );
-          })}
-        </nav>
-      </ScrollArea>
-
-      <div className="space-y-2 border-t border-sidebar-border p-4">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? (
-            <Sun className="mr-2 h-4 w-4" />
-          ) : (
-            <Moon className="mr-2 h-4 w-4" />
-          )}
-          {theme === "dark" ? "Light Mode" : "Dark Mode"}
-        </Button>
-        <Link href="/">
+        {/* Footer Section */}
+        <div className="shrink-0 space-y-1 border-t border-sidebar-border/40 bg-sidebar-accent/40 p-3">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-start text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+            className="w-full justify-start h-8 text-sidebar-foreground/70 hover:bg-sidebar-accent/80 hover:text-sidebar-foreground transition-colors text-xs"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            Back to Site
+            {theme === "dark" ? (
+              <Sun className="mr-2 h-3.5 w-3.5" />
+            ) : (
+              <Moon className="mr-2 h-3.5 w-3.5" />
+            )}
+            <span>{theme === "dark" ? "Light" : "Dark"}</span>
           </Button>
-        </Link>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
-          onClick={() => signOut()}
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          Sign Out
-        </Button>
+          <Link href="/">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start h-8 text-sidebar-foreground/70 hover:bg-sidebar-accent/80 hover:text-sidebar-foreground transition-colors text-xs"
+            >
+              <ChevronLeft className="mr-2 h-3.5 w-3.5" />
+              <span>Back</span>
+            </Button>
+          </Link>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start h-8 text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors text-xs"
+            onClick={() => signOut()}
+          >
+            <LogOut className="mr-2 h-3.5 w-3.5" />
+            <span>Sign Out</span>
+          </Button>
+        </div>
       </div>
-    </div>
+
+      {/* Light Mode Sidebar - Premium Prayer Times Style */}
+      <div className="flex dark:hidden h-full flex-col bg-white">
+        {/* Header Section - Premium Card */}
+        <div className="border-b border-teal-200/60 bg-gradient-to-br from-teal-50/90 to-cyan-50/40 px-5 py-4 shrink-0 shadow-sm">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-start gap-3 min-w-0">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 shadow-sm">
+                <BookOpen className="h-5 w-5 text-white" />
+              </div>
+              <div className="flex flex-col gap-0.5 min-w-0">
+                <h1 className="text-sm font-bold tracking-tight text-slate-900 truncate">
+                  Imam Panel
+                </h1>
+                <p className="text-xs text-slate-500 line-clamp-1">
+                  Mosque control workspace
+                </p>
+              </div>
+            </div>
+            {metadataLoading ? (
+              <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-slate-400" />
+            ) : (
+              <Badge className="shrink-0 bg-teal-100 text-teal-800 border border-teal-300 text-xs font-semibold">
+                Scoped
+              </Badge>
+            )}
+          </div>
+          {metadata ? (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              <Badge variant="secondary" className="bg-white/70 text-teal-700 text-xs border border-teal-200 font-medium shadow-xs">
+                {metadata.entities.length} surfaces
+              </Badge>
+            </div>
+          ) : null}
+        </div>
+
+        {/* Profile Section */}
+        {profile ? (
+          <div className="border-b border-teal-200/40 px-5 py-3 shrink-0 bg-teal-50/50">
+            <p className="text-xs font-semibold text-slate-800 truncate">
+              {profile.full_name || profile.email}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              <Badge className="bg-teal-100 text-teal-800 border border-teal-300 text-xs font-medium">
+                {getRoleDisplayName(profile.role)}
+              </Badge>
+            </div>
+          </div>
+        ) : null}
+
+        {/* Navigation Section */}
+        <ScrollArea className="flex-1 min-h-0 bg-gradient-to-b from-white to-slate-50/40">
+          <nav className="space-y-1 px-3 py-3">
+            {filteredItems.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/imam" && pathname.startsWith(item.href));
+              const badgeCount = getBadgeCount(metadata, item.entityKey);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "group relative flex items-center justify-between gap-2.5 rounded-lg px-3 py-2.5 text-xs font-medium transition-all duration-200",
+                    isActive
+                      ? "bg-gradient-to-r from-teal-100/90 to-cyan-100/50 text-teal-900 border border-teal-300/70 shadow-sm"
+                      : "text-slate-700 hover:bg-gradient-to-r hover:from-teal-50/80 hover:to-cyan-50/40 hover:text-slate-900 hover:border hover:border-teal-200/50 hover:shadow-xs"
+                  )}
+                >
+                  <span className="flex items-center gap-2.5 min-w-0">
+                    <item.icon className="h-4 w-4 shrink-0 text-teal-700" />
+                    <span className="truncate text-xs font-medium">{item.name}</span>
+                  </span>
+                  {badgeCount != null ? (
+                    <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-teal-600 text-white px-1 text-xs font-bold shadow-sm">
+                      {badgeCount}
+                    </Badge>
+                  ) : null}
+                </Link>
+              );
+            })}
+          </nav>
+        </ScrollArea>
+
+        {/* Footer Section */}
+        <div className="shrink-0 space-y-1 border-t border-teal-200/40 bg-gradient-to-br from-teal-50/40 to-white p-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start h-8 text-slate-700 hover:bg-teal-50/80 hover:text-slate-900 hover:border hover:border-teal-200/40 transition-all text-xs font-medium"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? (
+              <Sun className="mr-2 h-3.5 w-3.5" />
+            ) : (
+              <Moon className="mr-2 h-3.5 w-3.5" />
+            )}
+            <span>{theme === "dark" ? "Light" : "Dark"}</span>
+          </Button>
+          <Link href="/">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start h-8 text-slate-700 hover:bg-teal-50/80 hover:text-slate-900 hover:border hover:border-teal-200/40 transition-all text-xs font-medium"
+            >
+              <ChevronLeft className="mr-2 h-3.5 w-3.5" />
+              <span>Back</span>
+            </Button>
+          </Link>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start h-8 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border hover:border-red-200/40 transition-all text-xs font-medium"
+            onClick={() => signOut()}
+          >
+            <LogOut className="mr-2 h-3.5 w-3.5" />
+            <span>Sign Out</span>
+          </Button>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -311,7 +423,7 @@ export default function ImamLayout({
           </SheetContent>
         </Sheet>
 
-        <div className="flex-1 lg:pl-64">
+        <div className="flex-1 border-l border-slate-200/50 dark:border-sidebar-border/20 lg:pl-64">
           <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:hidden">
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
               <SheetTrigger asChild>
