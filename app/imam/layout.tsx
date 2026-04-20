@@ -153,47 +153,35 @@ function SidebarContent({ pathname }: { pathname: string }) {
   );
 
   return (
-    <div className="flex h-full flex-col">
-      {/* Header Section */}
-      <div className="border-b border-sidebar-border/60 bg-gradient-to-b from-sidebar-primary/8 to-sidebar px-6 py-6 shrink-0">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
-              <BookOpen className="h-6 w-6" />
+    <div className="flex h-full flex-col bg-sidebar">
+      {/* Header Section - Premium gradient */}
+      <div className="border-b border-sidebar-border/40 bg-gradient-to-b from-sidebar-accent/60 to-sidebar px-5 py-5 shrink-0">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-start gap-3 min-w-0">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary/20 border border-sidebar-primary/30">
+              <BookOpen className="h-5 w-5 text-sidebar-primary" />
             </div>
-            <div className="flex flex-col gap-1 min-w-0">
-              <h1 className="text-base font-bold tracking-tight text-sidebar-foreground">
+            <div className="flex flex-col gap-0.5 min-w-0">
+              <h1 className="text-sm font-bold tracking-tight text-sidebar-foreground truncate">
                 Imam Panel
               </h1>
-              <p className="text-xs text-sidebar-foreground/55 line-clamp-2">
+              <p className="text-xs text-sidebar-foreground/60 line-clamp-1">
                 Mosque control workspace
               </p>
             </div>
           </div>
           {metadataLoading ? (
-            <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-sidebar-foreground/50" />
+            <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-sidebar-foreground/40" />
           ) : (
-            <Badge
-              variant="outline"
-              className="shrink-0 border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
-            >
+            <Badge className="shrink-0 bg-sidebar-primary/25 text-sidebar-primary border-sidebar-primary/40 text-xs">
               Scoped
             </Badge>
           )}
         </div>
         {metadata ? (
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Badge
-              variant="secondary"
-              className="border-sidebar-border/50 bg-sidebar-accent/50 text-sidebar-foreground/80 text-xs"
-            >
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            <Badge variant="secondary" className="bg-sidebar-accent/40 text-sidebar-foreground/70 text-xs border-sidebar-border/30">
               {metadata.entities.length} surfaces
-            </Badge>
-            <Badge
-              variant="secondary"
-              className="border-sidebar-border/50 bg-sidebar-accent/50 text-sidebar-foreground/80 text-xs"
-            >
-              Active scope
             </Badge>
           </div>
         ) : null}
@@ -201,15 +189,12 @@ function SidebarContent({ pathname }: { pathname: string }) {
 
       {/* Profile Section */}
       {profile ? (
-        <div className="border-b border-sidebar-border/60 px-6 py-4 shrink-0">
-          <p className="text-sm font-semibold text-sidebar-foreground truncate">
+        <div className="border-b border-sidebar-border/40 px-5 py-3.5 shrink-0 bg-sidebar-accent/30">
+          <p className="text-xs font-semibold text-sidebar-foreground truncate">
             {profile.full_name || profile.email}
           </p>
-          <div className="mt-2.5 flex flex-wrap items-center gap-2">
-            <Badge
-              variant="outline"
-              className="border-emerald-500/30 bg-emerald-500/10 text-xs font-medium text-emerald-700 dark:text-emerald-300"
-            >
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <Badge className="bg-sidebar-primary/20 text-sidebar-primary border-sidebar-primary/30 text-xs">
               {getRoleDisplayName(profile.role)}
             </Badge>
           </div>
@@ -218,7 +203,7 @@ function SidebarContent({ pathname }: { pathname: string }) {
 
       {/* Navigation Section */}
       <ScrollArea className="flex-1 min-h-0">
-        <nav className="space-y-1 px-3 py-4">
+        <nav className="space-y-0.5 px-3 py-3">
           {filteredItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -230,21 +215,18 @@ function SidebarContent({ pathname }: { pathname: string }) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "group relative flex items-center justify-between gap-2 rounded-lg px-3.5 py-2.5 text-sm font-medium transition-all duration-200",
+                  "group relative flex items-center justify-between gap-2.5 rounded-md px-3 py-2 text-xs font-medium transition-all duration-200",
                   isActive
-                    ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 shadow-sm"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/40 hover:text-sidebar-foreground"
+                    ? "bg-sidebar-primary/20 text-sidebar-primary"
+                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
                 )}
               >
-                <span className="flex items-center gap-3 min-w-0">
-                  <item.icon className="h-5 w-5 shrink-0" />
-                  <span className="truncate">{item.name}</span>
+                <span className="flex items-center gap-2.5 min-w-0">
+                  <item.icon className="h-4 w-4 shrink-0" />
+                  <span className="truncate text-xs">{item.name}</span>
                 </span>
                 {badgeCount != null ? (
-                  <Badge
-                    variant="secondary"
-                    className="h-5 min-w-5 shrink-0 rounded-full bg-emerald-500/20 px-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300"
-                  >
+                  <Badge className="h-5 min-w-5 shrink-0 rounded-full bg-sidebar-primary/30 px-1 text-xs font-semibold text-sidebar-primary border-sidebar-primary/40">
                     {badgeCount}
                   </Badge>
                 ) : null}
@@ -255,38 +237,38 @@ function SidebarContent({ pathname }: { pathname: string }) {
       </ScrollArea>
 
       {/* Footer Section */}
-      <div className="shrink-0 space-y-1.5 border-t border-sidebar-border/60 bg-gradient-to-t from-sidebar-primary/5 to-sidebar p-4">
+      <div className="shrink-0 space-y-1 border-t border-sidebar-border/40 bg-sidebar-accent/40 p-3">
         <Button
           variant="ghost"
           size="sm"
-          className="w-full justify-start h-8 text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors"
+          className="w-full justify-start h-8 text-sidebar-foreground/70 hover:bg-sidebar-accent/80 hover:text-sidebar-foreground transition-colors text-xs"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
           {theme === "dark" ? (
-            <Sun className="mr-2 h-4 w-4" />
+            <Sun className="mr-2 h-3.5 w-3.5" />
           ) : (
-            <Moon className="mr-2 h-4 w-4" />
+            <Moon className="mr-2 h-3.5 w-3.5" />
           )}
-          <span className="text-xs">{theme === "dark" ? "Light" : "Dark"}</span>
+          <span>{theme === "dark" ? "Light" : "Dark"}</span>
         </Button>
         <Link href="/">
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-start h-8 text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors"
+            className="w-full justify-start h-8 text-sidebar-foreground/70 hover:bg-sidebar-accent/80 hover:text-sidebar-foreground transition-colors text-xs"
           >
-            <ChevronLeft className="mr-2 h-4 w-4" />
-            <span className="text-xs">Back</span>
+            <ChevronLeft className="mr-2 h-3.5 w-3.5" />
+            <span>Back</span>
           </Button>
         </Link>
         <Button
           variant="ghost"
           size="sm"
-          className="w-full justify-start h-8 text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors"
+          className="w-full justify-start h-8 text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors text-xs"
           onClick={() => signOut()}
         >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span className="text-xs">Sign Out</span>
+          <LogOut className="mr-2 h-3.5 w-3.5" />
+          <span>Sign Out</span>
         </Button>
       </div>
     </div>
